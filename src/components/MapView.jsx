@@ -37,7 +37,7 @@ function MapView() {
       )}
 
       <MapContainer
-        center={[28.8955, 76.6066]}
+        center={[28.3670, 77.3120]}
         zoom={15}
         style={{ height: '100vh', width: '100%' }}
       >
