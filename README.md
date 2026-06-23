@@ -48,9 +48,9 @@ The frontend is built in React and runs in the browser. It uses the HTML5 Geoloc
 
 Browser
 └── React App
-├── Leaflet.js (map)
-├── Geolocation API (GPS)
-└── Firebase (real-time data sync)
+          ├── Leaflet.js (map)
+          ├── Geolocation API (GPS)
+          └── Firebase (real-time data sync)
 
 ---
 
@@ -106,5 +106,7 @@ Will be deployed on Vercel once the project is complete.
 ## 👩‍💻 Developer
 
 Kriti AHLAWAT
+
 Submitted to: Mr. Sourav Singh
+
 Deadline: 28th June 2026
