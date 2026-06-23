@@ -105,7 +105,7 @@ Will be deployed on Vercel once the project is complete.
 
 ## 👩‍💻 Developer
 
-Kriti AHLAWAT
+KRITI AHLAWAT
 
 Submitted to: Mr. Sourav Singh
 
