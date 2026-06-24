@@ -1,3 +1,6 @@
+import FirebaseUsers from './FirebaseUsers'
+import useFirebaseUsers from '../hooks/useFirebaseUsers'
+import { saveLocation } from "../firebase/locationService";
 import { MapContainer, TileLayer, useMap } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { useEffect, useState, useRef } from 'react'
@@ -46,9 +49,23 @@ function AutoCenter({ location }) {
 
 function MapView() {
   const { location, error } = useGeolocation()
+  const users = useFirebaseUsers()
+  console.log(users)
   const { state } = useGeofence()
   const [logs, setLogs] = useState([])
   const insideRef = useRef({})
+
+  const userId = localStorage.getItem("userId") ||
+  crypto.randomUUID()
+
+localStorage.setItem("userId", userId)
+
+
+  useEffect(() => {
+  if (!location) return
+
+  saveLocation(userId, location)
+}, [location])
 
   useEffect(() => {
     if (!location) return
@@ -125,6 +142,7 @@ function MapView() {
           attribution='&copy; OpenStreetMap contributors'
         />
         <UserMarker location={location} />
+        <FirebaseUsers users={users} />
         <AutoCenter location={location} />
         <GeofenceDrawer />
       </MapContainer>
