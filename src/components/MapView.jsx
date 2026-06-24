@@ -3,6 +3,8 @@ import 'leaflet/dist/leaflet.css'
 import { useEffect } from 'react'
 import useGeolocation from '../hooks/useGeolocation'
 import UserMarker from './UserMarker'
+import GeofenceDrawer from './GeofenceDrawer'
+import GeofenceList from './GeofenceList'
 
 function AutoCenter({ location }) {
   const map = useMap()
@@ -18,7 +20,7 @@ function MapView() {
   const { location, error } = useGeolocation()
 
   return (
-    <div style={{ height: '100vh', width: '100%' }}>
+    <div style={{ height: '100vh', width: '100%', position: 'relative' }}>
 
       {error && (
         <div style={{
@@ -36,6 +38,8 @@ function MapView() {
         </div>
       )}
 
+      <GeofenceList />
+
       <MapContainer
         center={[28.3670, 77.3120]}
         zoom={15}
@@ -47,6 +51,7 @@ function MapView() {
         />
         <UserMarker location={location} />
         <AutoCenter location={location} />
+        <GeofenceDrawer />
       </MapContainer>
 
     </div>
