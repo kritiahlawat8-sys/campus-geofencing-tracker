@@ -10,7 +10,8 @@ function GeofenceDrawer() {
   const { dispatch } = useGeofence()
 
   useEffect(() => {
-    const drawnItems = new L.FeatureGroup()
+  map.off(L.Draw.Event.CREATED)
+  const drawnItems = new L.FeatureGroup()
     map.addLayer(drawnItems)
 
     const drawControl = new L.Control.Draw({
