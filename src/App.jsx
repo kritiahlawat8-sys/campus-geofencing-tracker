@@ -1,10 +1,17 @@
 import MapView from './components/MapView'
 import { GeofenceProvider } from './context/GeofenceContext'
+import Navbar from './components/Navbar'
+import './App.css'
 
 function App() {
   return (
     <GeofenceProvider>
-      <MapView />
+      <div className="app-container">
+        <Navbar />
+        <div className="main-content">
+          <MapView />
+        </div>
+      </div>
     </GeofenceProvider>
   )
 }

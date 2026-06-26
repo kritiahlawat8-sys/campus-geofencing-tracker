@@ -22,39 +22,7 @@ function ActivityLog({ logs }) {
   }
 
   return (
-    <div style={{
-      position: 'absolute',
-      bottom: '10px',
-      left: '10px',
-      width: '320px',
-      background: 'white',
-      borderRadius: '8px',
-      padding: '12px',
-      zIndex: 1000,
-      boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
-      maxHeight: '250px',
-      overflowY: 'auto'
-    }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-        <h3 style={{ margin: 0, fontSize: '14px', color: '#1e293b' }}>
-          Activity Log ({logs.length})
-        </h3>
-        <button
-          onClick={exportCSV}
-          style={{
-            fontSize: '11px',
-            padding: '3px 8px',
-            borderRadius: '4px',
-            border: '1px solid #3b82f6',
-            background: '#3b82f6',
-            color: 'white',
-            cursor: 'pointer'
-          }}
-        >
-          Export CSV
-        </button>
-      </div>
-
+    <div style={{ width: '100%' }}>
       <div style={{ display: 'flex', gap: '6px', marginBottom: '8px' }}>
         {['all', 'entry', 'exit'].map(f => (
           <button
@@ -62,12 +30,13 @@ function ActivityLog({ logs }) {
             onClick={() => setFilter(f)}
             style={{
               fontSize: '11px',
-              padding: '3px 8px',
+              padding: '4px 8px',
               borderRadius: '4px',
-              border: '1px solid #e2e8f0',
-              background: filter === f ? '#3b82f6' : 'white',
+              border: '1px solid #dcfce7',
+              background: filter === f ? '#16a34a' : 'white',
               color: filter === f ? 'white' : '#64748b',
-              cursor: 'pointer'
+              cursor: 'pointer',
+              fontWeight: '500'
             }}
           >
             {f.charAt(0).toUpperCase() + f.slice(1)}
@@ -75,19 +44,38 @@ function ActivityLog({ logs }) {
         ))}
       </div>
 
+      <button
+        onClick={exportCSV}
+        style={{
+          width: '100%',
+          fontSize: '11px',
+          padding: '6px 8px',
+          borderRadius: '4px',
+          border: 'none',
+          background: '#16a34a',
+          color: 'white',
+          cursor: 'pointer',
+          fontWeight: '500',
+          marginBottom: '8px'
+        }}
+      >
+        Export CSV
+      </button>
+
       {filteredLogs.length === 0 && (
         <p style={{ fontSize: '12px', color: '#94a3b8', margin: 0 }}>
-          No activity yet. Enter or exit a geofence zone!
+          No activity yet.
         </p>
       )}
 
       {filteredLogs.map((log, index) => (
         <div key={index} style={{
-          padding: '6px 8px',
+          padding: '8px',
           marginBottom: '6px',
           borderRadius: '6px',
-          border: '1px solid #e2e8f0',
-          borderLeft: `3px solid ${log.type === 'entry' ? '#22c55e' : '#ef4444'}`
+          border: '1px solid #dcfce7',
+          borderLeft: `3px solid ${log.type === 'entry' ? '#16a34a' : '#ef4444'}`,
+          background: '#f8fafc'
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span style={{ fontSize: '12px', fontWeight: '500', color: '#1e293b' }}>
@@ -98,7 +86,7 @@ function ActivityLog({ logs }) {
             </span>
           </div>
           <p style={{ fontSize: '11px', color: '#64748b', margin: '2px 0 0' }}>
-            {log.user} — {log.type}
+            {log.user}
           </p>
         </div>
       ))}

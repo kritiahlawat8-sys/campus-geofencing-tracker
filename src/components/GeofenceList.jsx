@@ -4,36 +4,20 @@ function GeofenceList() {
   const { state, dispatch } = useGeofence()
 
   return (
-    <div style={{
-      position: 'absolute',
-      top: '10px',
-      right: '10px',
-      width: '250px',
-      background: 'white',
-      borderRadius: '8px',
-      padding: '12px',
-      zIndex: 1000,
-      boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
-      maxHeight: '400px',
-      overflowY: 'auto'
-    }}>
-      <h3 style={{ margin: '0 0 10px', fontSize: '14px', color: '#1e293b' }}>
-        Geofences ({state.geofences.length})
-      </h3>
-
+    <div style={{ width: '100%' }}>
       {state.geofences.length === 0 && (
-        <p style={{ fontSize: '12px', color: '#94a3b8' }}>
-          No geofences yet. Draw a circle or polygon on the map!
+        <p style={{ fontSize: '12px', color: '#94a3b8', margin: 0 }}>
+          No geofences yet. Draw one on the map!
         </p>
       )}
 
       {state.geofences.map(fence => (
         <div key={fence.id} style={{
-          padding: '8px',
+          padding: '10px',
           marginBottom: '8px',
           borderRadius: '6px',
-          border: '1px solid #e2e8f0',
-          background: fence.active ? '#f0f9ff' : '#f8fafc'
+          border: '1px solid #dcfce7',
+          background: fence.active ? '#f0fdf4' : '#f8fafc'
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontSize: '13px', fontWeight: '500', color: '#1e293b' }}>
@@ -43,14 +27,14 @@ function GeofenceList() {
               fontSize: '11px',
               padding: '2px 6px',
               borderRadius: '4px',
-              background: fence.active ? '#3b82f6' : '#94a3b8',
+              background: fence.active ? '#16a34a' : '#94a3b8',
               color: 'white'
             }}>
               {fence.active ? 'Active' : 'Inactive'}
             </span>
           </div>
 
-          <p style={{ fontSize: '11px', color: '#64748b', margin: '4px 0' }}>
+          <p style={{ fontSize: '11px', color: '#64748b', margin: '4px 0 0' }}>
             Type: {fence.type} {fence.radius ? `| Radius: ${Math.round(fence.radius)}m` : ''}
           </p>
 
@@ -61,10 +45,11 @@ function GeofenceList() {
                 fontSize: '11px',
                 padding: '3px 8px',
                 borderRadius: '4px',
-                border: '1px solid #3b82f6',
+                border: '1px solid #16a34a',
                 background: 'white',
-                color: '#3b82f6',
-                cursor: 'pointer'
+                color: '#16a34a',
+                cursor: 'pointer',
+                fontWeight: '500'
               }}
             >
               {fence.active ? 'Deactivate' : 'Activate'}
@@ -79,7 +64,8 @@ function GeofenceList() {
                 border: '1px solid #ef4444',
                 background: 'white',
                 color: '#ef4444',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                fontWeight: '500'
               }}
             >
               Delete

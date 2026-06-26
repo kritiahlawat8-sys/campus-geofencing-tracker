@@ -1,14 +1,13 @@
-import FirebaseUsers from './FirebaseUsers'
-import useFirebaseUsers from '../hooks/useFirebaseUsers'
-import { saveLocation } from "../firebase/locationService";
 import { MapContainer, TileLayer, useMap } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { useEffect, useState, useRef } from 'react'
 import useGeolocation from '../hooks/useGeolocation'
 import UserMarker from './UserMarker'
 import GeofenceDrawer from './GeofenceDrawer'
-import GeofenceList from './GeofenceList'
-import ActivityLog from './ActivityLog'
+import Sidebar from './Sidebar'
+import FirebaseUsers from './FirebaseUsers'
+import useFirebaseUsers from '../hooks/useFirebaseUsers'
+import { saveLocation } from "../firebase/locationService"
 import { useGeofence } from '../context/GeofenceContext'
 
 function haversineDistance(lat1, lon1, lat2, lon2) {
@@ -49,24 +48,19 @@ function AutoCenter({ location }) {
 
 function MapView() {
   const { location, error } = useGeolocation()
-  const users = useFirebaseUsers()
-  console.log(users)
   const { state } = useGeofence()
   const [logs, setLogs] = useState([])
   const insideRef = useRef({})
+  const users = useFirebaseUsers()
 
-  const userId = localStorage.getItem("userId") ||
-  crypto.randomUUID()
-
-localStorage.setItem("userId", userId)
-
-
+  // Save location to Firebase
   useEffect(() => {
-  if (!location) return
+    if (location) {
+      saveLocation(location)
+    }
+  }, [location])
 
-  saveLocation(userId, location)
-}, [location])
-
+  // Geofence detection logic
   useEffect(() => {
     if (!location) return
 
@@ -111,15 +105,15 @@ localStorage.setItem("userId", userId)
   }, [location, state.geofences])
 
   return (
-    <div style={{ height: '100vh', width: '100%', position: 'relative' }}>
+    <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
 
       {error && (
         <div style={{
           position: 'absolute',
-          top: '10px',
+          top: '70px',
           left: '50%',
           transform: 'translateX(-50%)',
-          background: 'red',
+          background: '#ef4444',
           color: 'white',
           padding: '8px 16px',
           borderRadius: '8px',
@@ -129,13 +123,12 @@ localStorage.setItem("userId", userId)
         </div>
       )}
 
-      <GeofenceList />
-      <ActivityLog logs={logs} />
+      <Sidebar logs={logs} />
 
       <MapContainer
         center={[28.3670, 77.3120]}
         zoom={15}
-        style={{ height: '100vh', width: '100%' }}
+        style={{ flex: 1, height: '100%' }}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
