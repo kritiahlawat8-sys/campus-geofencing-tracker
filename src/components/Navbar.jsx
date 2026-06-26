@@ -13,21 +13,19 @@ function Navbar() {
       position: 'relative'
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <div style={{
-          background: '#1d8d46',
-          borderRadius: '8px',
-          width: '32px',
-          height: '32px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: '18px'
-        }}>
-          🗺️
-        </div>
-        <span style={{ fontWeight: '600', fontSize: '16px', color: '#1e293b' }}>
-          Campus Geofencing Tracker
-        </span>
+        <img 
+  src="/image.png" 
+  alt="Logo" 
+  style={{
+    width: '32px',
+    height: '32px',
+    borderRadius: '8px'
+  }}
+  />
+  
+        <span style={{ fontWeight: '600', fontSize: '16px', color: 'red' }}>
+  THIS IS MY NAVBAR
+</span>
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>

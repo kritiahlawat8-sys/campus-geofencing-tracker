@@ -1,3 +1,4 @@
+
 import { useEffect } from 'react'
 import { useMap } from 'react-leaflet'
 import L from 'leaflet'
@@ -38,12 +39,20 @@ function GeofenceDrawer() {
 
       const name = prompt('Enter geofence name:') || 'Unnamed Zone'
 
+const colorOptions = ['#3b82f6', '#16a34a', '#dc2626', '#f59e0b', '#8b5cf6', '#ec4899']
+const colorPrompt = prompt(
+  'Select color:\n1-Blue\n2-Green\n3-Red\n4-Orange\n5-Purple\n6-Pink\nEnter number (1-6):',
+  '1'
+)
+const colorIndex = Math.max(0, Math.min(5, parseInt(colorPrompt || '1') - 1))
+const color = colorOptions[colorIndex]
+
       let fenceData = {
         id: Date.now(),
         name,
         type,
         active: true,
-        color: '#3b82f6'
+        color: color
       }
 
       if (type === 'circle') {

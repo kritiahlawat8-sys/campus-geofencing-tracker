@@ -1,3 +1,5 @@
+import GeofenceVisualization from './GeofenceVisualization'
+import { v4 as uuidv4 } from 'uuid'
 import { MapContainer, TileLayer, useMap } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { useEffect, useState, useRef } from 'react'
@@ -46,8 +48,15 @@ function AutoCenter({ location }) {
   return null
 }
 
-function MapView() {
+function MapView({ role, setRole }) {
+  const userIdRef = useRef(localStorage.getItem('userId') || uuidv4())
+  
+  useEffect(() => {
+    localStorage.setItem('userId', userIdRef.current)
+  }, [])
+
   const { location, error } = useGeolocation()
+  // ... rest of code
   const { state } = useGeofence()
   const [logs, setLogs] = useState([])
   const insideRef = useRef({})
@@ -55,10 +64,10 @@ function MapView() {
 
   // Save location to Firebase
   useEffect(() => {
-    if (location) {
-      saveLocation(location)
-    }
-  }, [location])
+  if (location) {
+    saveLocation(userIdRef.current, location)  // ← userId add kiya!
+  }
+}, [location])
 
   // Geofence detection logic
   useEffect(() => {
@@ -123,22 +132,27 @@ function MapView() {
         </div>
       )}
 
-      <Sidebar logs={logs} />
+      {/* Sidebar - Only for Admin */}
+      {role === 'admin' && <Sidebar logs={logs} />}
 
       <MapContainer
-        center={[28.3670, 77.3120]}
-        zoom={15}
-        style={{ flex: 1, height: '100%' }}
-      >
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; OpenStreetMap contributors'
-        />
-        <UserMarker location={location} />
-        <FirebaseUsers users={users} />
-        <AutoCenter location={location} />
-        <GeofenceDrawer />
-      </MapContainer>
+  center={[28.3670, 77.3120]}
+  zoom={15}
+  style={{ flex: 1, height: '100%' }}
+>
+  <TileLayer
+    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    attribution='&copy; OpenStreetMap contributors'
+  />
+  <UserMarker location={location} />
+  {role === 'admin' && <FirebaseUsers users={users} />}
+  <AutoCenter location={location} />
+  
+  {/* Geofences - Both Admin and Student can see */}
+  <GeofenceVisualization />
+  
+  {role === 'admin' && <GeofenceDrawer />}
+</MapContainer>
 
     </div>
   )
