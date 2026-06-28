@@ -1,112 +1,239 @@
 # Campus Geofencing Tracker
 
-A real-time web application where administrators can draw virtual boundaries on a map and track users' live locations. The system detects when someone enters or exits a zone and logs all activity in real time.
+A real-time web application that allows administrators to create virtual boundaries (geofences) on a map and monitor users' live locations. The system automatically detects when a user enters or exits a geofenced area and records these events in real time.
 
-Built as a technical assignment submitted to Mr. Sourav Singh.
-
----
-
-## Features
-
-- Live GPS location tracking using the browser's built-in Geolocation API
-- Interactive map using Leaflet.js with zoom, pan and tile switching
-- Circular and polygonal geofence creation (in progress)
-- Real-time entry and exit alerts (in progress)
-- Activity log with filtering and CSV export (in progress)
-- Real-time location broadcasting using Firebase
-- Responsive design for mobile and desktop
+This project was developed as a technical assignment submitted to **Mr. Sourav Singh**.
 
 ---
 
-## Technologies Used
+# ✨ Features
 
-- React 18 with Vite
-- Leaflet.js and react-leaflet for maps
-- HTML5 Geolocation API for live tracking
-- Firebase Realtime Database for real-time backend
-- CSS3 for styling
-- Git and GitHub for version control
+## 🗺️ Mapping & Live Location
 
----
-
-
-## 🔥 Why Firebase over Socket.io?
-
-Firebase Realtime Database was chosen as the real-time backend for the following reasons:
-
-- No separate backend server needed - Firebase handles everything, reducing complexity
-- Free tier available — sufficient for this project's requirements
-- Real-time sync built-in — data updates automatically across all connected clients
-- Easy setup — no need to deploy and manage a Node.js + Express server separately
-- Socket.io would require a separate backend server hosted on Render/Railway, adding unnecessary complexity for this project
+* Live GPS location tracking using the HTML5 Geolocation API
+* Real-time location updates with `watchPosition()`
+* Interactive map powered by Leaflet.js
+* User location marker with accuracy circle
+* Automatic map centering on the user's current location
 
 ---
 
-## 🏗️ Architecture
+## 📍 Geofence Management
 
-The frontend is built in React and runs in the browser. It uses the HTML5 Geolocation API to get the user's live GPS coordinates and displays them on a Leaflet map. Location data and geofence events will be sent to Firebase Realtime Database, which syncs the data across all connected users in real time.
+* Create circular geofences
+* Create polygon geofences
+* Visualize all geofences on the map
+* Custom color selection for geofences
+* Persistent geofence storage using localStorage
 
+---
+
+## 🚨 Geofence Detection
+
+* Real-time entry and exit detection
+* Activity log with timestamps
+* Filter activity records
+* Export activity logs as CSV
+
+### Algorithms Used
+
+* **Haversine Formula** — Calculates the distance between GPS coordinates for circular geofences.
+* **Ray-Casting Algorithm** — Determines whether a location lies inside or outside a polygon geofence.
+
+---
+
+## ☁️ Real-Time Tracking
+
+* Firebase Realtime Database integration
+* Live cloud synchronization
+* UUID-based user identification
+* Simultaneous multi-user tracking
+* Automatic real-time updates using Firebase listeners
+
+---
+
+## 👥 Role-Based Access
+
+### Admin
+
+* Create and delete geofences
+* View all users
+* Monitor entry and exit events
+* Manage geofence settings
+
+### Student
+
+* Share live location
+* View assigned geofences
+* Receive real-time monitoring
+
+---
+
+## 🎨 User Interface
+
+* Modern landing page
+* Clean light theme (white & green)
+* Responsive dashboard layout
+* Navigation bar with live tracking status
+* Sidebar with tabbed navigation
+* Geofence management panel
+* Activity log panel
+* Compass branding
+
+---
+
+# 🛠️ Technologies Used
+
+## Frontend
+
+* React 18
+* Vite
+
+## Maps
+
+* Leaflet.js
+* React Leaflet
+* Leaflet Draw
+
+## Backend
+
+* Firebase Realtime Database
+
+## State Management
+
+* React Context API
+* useReducer
+
+## Styling
+
+* CSS3
+* Tailwind CSS
+
+## APIs & Utilities
+
+* HTML5 Geolocation API
+* UUID
+* localStorage
+
+---
+
+# 🔥 Why Firebase Instead of Socket.io?
+
+Firebase Realtime Database was selected because it provides real-time synchronization without requiring a separate backend server.
+
+### Advantages
+
+* No Node.js backend required
+* Built-in real-time synchronization
+* Free tier suitable for development projects
+* Automatic data persistence
+* Faster development and deployment
+* Scales easily for multiple connected users
+
+Socket.io would require building, deploying, and maintaining an additional backend server, increasing the project's complexity.
+
+---
+
+# 🏗️ Project Architecture
+
+```
 Browser
-└── React App
-          ├── Leaflet.js (map)
-          ├── Geolocation API (GPS)
-          └── Firebase (real-time data sync)
+│
+└── React Application
+    │
+    ├── HTML5 Geolocation API
+    │        │
+    │        ▼
+    │   Live GPS Coordinates
+    │
+    ├── Leaflet.js
+    │        │
+    │        ▼
+    │   Interactive Map
+    │
+    ├── React Context API + useReducer
+    │
+    └── Firebase Realtime Database
+             │
+             ▼
+     Real-Time Cloud Synchronization
+```
 
 ---
 
-## How to Run Locally
 
-Make sure you have Node.js and Git installed.
 
-### Steps:
+# 🚀 How to Run Locally
 
-1. Clone the repository
+### Prerequisites
+
+* Node.js
+* Git
+
+### Clone the Repository
+
 ```bash
 git clone https://github.com/kritiahlawat8-sys/campus-geofencing-tracker.git
 ```
 
-2. Go into the project folder
+### Navigate to the Project
+
 ```bash
 cd campus-geofencing-tracker
 ```
 
-3. Install dependencies
+### Install Dependencies
+
 ```bash
 npm install
 ```
 
-4. Start the development server
+### Start the Development Server
+
 ```bash
 npm run dev
 ```
 
-5. Open your browser and go to
+Open your browser and visit:
+
+```
 http://localhost:5173
+```
 
-⚠️ Allow location permission when the browser asks — this is required for live GPS tracking.
-
----
-
-## Screenshots
-
-Live map with GPS tracking:
-
-*(screenshot will be added)*
-
-Geofence creation and activity log screenshots will be added as features are completed.
+> **Note:** Allow location permission when prompted. Live GPS tracking requires browser location access.
 
 ---
 
-## Live Demo
+# 📷 Screenshots
 
-Will be deployed on Vercel once the project is complete.
+### Landing Page
+
+<img width="1470" height="819" alt="image" src="https://github.com/user-attachments/assets/dd11cd49-7a9a-4c13-a66e-137ac546e929" />
+
+
+### Live GPS Tracking
+
+<img width="1063" height="597" alt="image" src="https://github.com/user-attachments/assets/ea5ed0b6-44ad-4314-8136-2ac2c9544e44" />
+
+
+### Geofence Creation
+
+<img width="1385" height="723" alt="image" src="https://github.com/user-attachments/assets/fc4a09ab-7364-42db-b0eb-fcab90237632" />
+
+
+### Activity Log
+
+<img width="895" height="541" alt="image" src="https://github.com/user-attachments/assets/4ca88a5a-cb9f-4826-a2c3-7f107b82ba3b" />
+
 
 ---
 
-## 👩‍💻 Developer
+# 👩‍💻 Developer
 
-KRITI AHLAWAT
+**Kriti Ahlawat**
 
-Submitted to: Mr. Sourav Singh
+B.Tech (Information Technology)
 
-Deadline: 28th June 2026
+Submitted to **Mr. Sourav Singh**
+
+**Project:** Campus Geofencing Tracker
