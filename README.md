@@ -228,6 +228,15 @@ http://localhost:5173
 
 ---
 
+## 🚀 Deployment
+
+The project is deployed on **Vercel** for live access.
+
+### Live Demo
+🔗 https://live-campus-geofencing-tracker.vercel.app
+
+---
+
 # 👩‍💻 Developer
 
 **Kriti Ahlawat**
